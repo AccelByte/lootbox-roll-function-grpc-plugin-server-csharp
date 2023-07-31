@@ -74,6 +74,9 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client.Model
             Namespace = ReplaceWithEnvironmentVariableIfExists(Namespace, "AB_NAMESPACE");
             Username = ReplaceWithEnvironmentVariableIfExists(Username, "AB_USERNAME");
             Password = ReplaceWithEnvironmentVariableIfExists(Password, "AB_PASSWORD");
+            CategoryPath = ReplaceWithEnvironmentVariableIfExists(CategoryPath, "AB_STORE_CATEGORY");
+            GrpcServerUrl = ReplaceWithEnvironmentVariableIfExists(GrpcServerUrl, "AB_GRPC_SERVER_URL");
+            ExtendAppName = ReplaceWithEnvironmentVariableIfExists(ExtendAppName, "AB_EXTEND_APP_NAME");
 
             if (CategoryPath.Trim() == "")
                 CategoryPath = $"/testcat-{Helper.GenerateRandomId(8)}";

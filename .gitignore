@@ -393,10 +393,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Dotnet CLI
-.dotnet/*
-.local/*
-.nuget/*
-
 */.dotnet/*
 */.local/*
 */.nuget/*
