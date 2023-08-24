@@ -128,11 +128,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Server
             app.UseGrpcMetrics();
             
             app.MapGrpcService<LootboxFunctionService>();
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapGrpcReflectionService();
-            }
-
+            app.MapGrpcReflectionService();
             app.MapGrpcHealthChecksService();
             app.MapMetrics();
             app.Run();
