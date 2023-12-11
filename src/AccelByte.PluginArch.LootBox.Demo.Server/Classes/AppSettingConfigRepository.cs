@@ -52,7 +52,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Server
 
             string? appResourceName = Environment.GetEnvironmentVariable("APP_RESOURCE_NAME");
             if (appResourceName == null)
-                appResourceName = "MMV2GRPCSERVICE ";
+                appResourceName = "LOOTBOXGRPCSERVICE ";
             ResourceName = appResourceName;
         }
     }
