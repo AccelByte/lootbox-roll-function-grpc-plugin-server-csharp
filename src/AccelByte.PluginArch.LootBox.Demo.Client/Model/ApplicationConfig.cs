@@ -79,7 +79,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client.Model
             ExtendAppName = ReplaceWithEnvironmentVariableIfExists(ExtendAppName, "AB_EXTEND_APP_NAME");
 
             if (CategoryPath.Trim() == "")
-                CategoryPath = $"/testcat-{Helper.GenerateRandomId(8)}";
+                CategoryPath = $"/test{Helper.GenerateRandomId(8)}";
         }
     }
 }

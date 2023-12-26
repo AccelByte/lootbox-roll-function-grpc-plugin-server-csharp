@@ -582,5 +582,48 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
         {
             _Sdk.Logout();
         }
+
+        public void CheckAndCreateCurrencyIfNotExists()
+        {
+            try
+            {
+                var currencies = _Sdk.Platform.Currency.ListCurrenciesOp
+                    .Execute(_Sdk.Namespace);
+                if (currencies == null)
+                    throw new Exception("Could not retrieve list of currencies.");
+
+                bool isUSDFound = false;
+                foreach (var currencyItem in currencies)
+                {
+                    if (currencyItem.CurrencyCode == "USD")
+                    {
+                        isUSDFound = true;
+                        break;
+                    }
+                }
+
+                if (!isUSDFound)
+                {
+                    _Sdk.Platform.Currency.CreateCurrencyOp
+                        .SetBody(new CurrencyCreate()
+                        {
+                            CurrencyCode = "USD",
+                            CurrencySymbol = "US$",
+                            CurrencyType = CurrencyCreateCurrencyType.REAL,
+                            Decimals = 2,
+                            LocalizationDescriptions = new Dictionary<string, string>()
+                            {
+                                { "en", "US Dollars" }
+                            }
+                        })
+                        .Execute(_Sdk.Namespace);
+                }
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine("CheckAndCreateCurrencyIfNotExists failed. {0}", x.Message);
+                throw;
+            }
+        }
     }
 }
