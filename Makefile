@@ -35,6 +35,31 @@ test:
 	docker run --rm -u $$(id -u):$$(id -g) -v $$(pwd):/data/ -w /data/src -e HOME="/data" -e DOTNET_CLI_HOME="/data" mcr.microsoft.com/dotnet/sdk:$(DOTNETVER) \
 			dotnet test
 
+test_functional_local_hosted:
+	@test -n "$(ENV_PATH)" || (echo "ENV_PATH is not set"; exit 1)
+	docker build --tag lootbox-test-functional -f test/functional/Dockerfile test/functional && \
+	docker run --rm -t \
+		--env-file $(ENV_PATH) \
+		-e DOTNET_CLI_HOME="/data" \
+		-e XDG_DATA_HOME="/data" \
+		-u $$(id -u):$$(id -g) \
+		-v $$(pwd):/data \
+		-w /data lootbox-test-functional bash ./test/functional/test-local-hosted.sh
+
+test_functional_accelbyte_hosted:
+	@test -n "$(ENV_PATH)" || (echo "ENV_PATH is not set"; exit 1)
+	docker build --tag lootbox-test-functional -f test/functional/Dockerfile test/functional && \
+	docker run --rm -t \
+		--env-file $(ENV_PATH) \
+		-e DOTNET_CLI_HOME="/data" \
+		-e XDG_DATA_HOME="/data" \
+		-e DOCKER_CONFIG=/tmp/.docker \
+		-u $$(id -u):$$(id -g) \
+		--group-add $$(getent group docker | cut -d ':' -f 3) \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v $$(pwd):/data \
+		-w /data lootbox-test-functional bash ./test/functional/test-accelbyte-hosted.sh
+
 ngrok:
 	@test -n "$(NGROK_AUTHTOKEN)" || (echo "NGROK_AUTHTOKEN is not set" ; exit 1)
 	docker run --rm -it --net=host -e NGROK_AUTHTOKEN=$(NGROK_AUTHTOKEN) ngrok/ngrok:3-alpine \
