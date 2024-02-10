@@ -64,27 +64,26 @@ app is deployed.
 2. Fill in the required environment variables in `.env` file as shown below.
 
    ```
-   AB_BASE_URL=https://demo.accelbyte.io     # Base URL of AccelByte Gaming Services environment
+   AB_BASE_URL=https://test.accelbyte.io     # Base URL of AccelByte Gaming Services environment
    AB_CLIENT_ID='xxxxxxxxxx'                 # Client ID from the Prerequisites section
    AB_CLIENT_SECRET='xxxxxxxxxx'             # Client Secret from the Prerequisites section
    AB_NAMESPACE='xxxxxxxxxx'                 # Namespace ID from the Prerequisites section
-   PLUGIN_GRPC_SERVER_AUTH_ENABLED=false     # Enable or disable access token and permission verification
+   PLUGIN_GRPC_SERVER_AUTH_ENABLED=true      # Enable or disable access token validation
    ```
 
-   > :warning: **Keep PLUGIN_GRPC_SERVER_AUTH_ENABLED=false for now**: It is currently not
-   supported by `AccelByte Gaming Services`, but it will be enabled later on to improve security. If it is
-   enabled, the gRPC server will reject any calls from gRPC clients without proper authorization
-   metadata.
+   > :info: **In this sample app, PLUGIN_GRPC_SERVER_AUTH_ENABLED is `true` by default**: If it is set to `false`, the 
+   `gRPC server` can be invoked without `AccelByte Gaming Services` access token. This option is provided for development 
+   purpose only. It is recommended to enable `gRPC server` access token validation in production environment.
 
 For more options, create `src/AccelByte.PluginArch.Demo.Server/appsettings.Development.json` and fill in the required configuration.
 
 ```json
 {
   "DirectLogToLoki": false,
-  "EnableAuthorization": false,                 // Enable or disable access token and permission check (env var: PLUGIN_GRPC_SERVER_AUTH_ENABLED)
+  "EnableAuthorization": true,                 // Enable or disable access token and permission check (env var: PLUGIN_GRPC_SERVER_AUTH_ENABLED)
   "RevocationListRefreshPeriod": 60,
   "AccelByte": {
-    "BaseUrl": "https://demo.accelbyte.io",     // Base URL (env var: AB_BASE_URL)
+    "BaseUrl": "https://test.accelbyte.io",     // Base URL (env var: AB_BASE_URL)
     "ClientId": "xxxxxxxxxx",                   // Client ID (env var: AB_CLIENT_ID)    
     "ClientSecret": "xxxxxxxxxx",               // Client Secret (env var: AB_CLIENT_SECRET)
     "AppName": "LOOTBOXGRPCSERVICE",
@@ -117,6 +116,9 @@ docker compose up --build
 ## Testing
 
 ### Test in Local Development Environment
+
+> :warning: **To perform the following, make sure PLUGIN_GRPC_SERVER_AUTH_ENABLED is set to `false`**: Otherwise,
+the gRPC request will be rejected by the `gRPC server`.
 
 The custom functions in this sample app can be tested locally using [postman](https://www.postman.com/).
 

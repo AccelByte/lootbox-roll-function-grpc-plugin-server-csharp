@@ -34,7 +34,7 @@ sequenceDiagram
 
 The following environment variables are used by this CLI demo app.
 ```
-export AB_BASE_URL='https://demo.accelbyte.io'
+export AB_BASE_URL='https://test.accelbyte.io'
 export AB_CLIENT_ID='xxxxxxxxxx'
 export AB_CLIENT_SECRET='xxxxxxxxxx'
 
@@ -53,7 +53,7 @@ CLI demo app requires only the grpc server url as a parameter.
 
 - Without any environment variables
 ```bash
-$ dotnet run -- --baseurl https://demo.accelbyte.io --client <CLIENT-ID-VALUE> --secret <CLIENT-SECRET-VALUE> --namespace <NAMESPACE-VALUE> --username <USERNAME> --password <PASSWORD> --grpc-target <GRPC_PLUGIN_SERVER_URL>
+$ dotnet run -- --baseurl https://test.accelbyte.io --client <CLIENT-ID-VALUE> --secret <CLIENT-SECRET-VALUE> --namespace <NAMESPACE-VALUE> --username <USERNAME> --password <PASSWORD> --grpc-target <GRPC_PLUGIN_SERVER_URL>
 ```
 
 - With basic environment variables setup
