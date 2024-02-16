@@ -16,7 +16,7 @@ build:
 		-v $$(pwd):/data/ \
 		-e HOME="/data/.testrun" -e DOTNET_CLI_HOME="/data/.testrun" \
 		mcr.microsoft.com/dotnet/sdk:$(DOTNETVER) \
-		sh -c "mkdir /data/.testrun && cp -r /data/src /data/.testrun/src && cd /data/.testrun/src && dotnet build && mkdir /data/.output && cp -r /data/.testrun/src/$(APP_PATH)/bin/* /data/.output/ && rm -rf /data/.testrun"
+		sh -c "mkdir -p /data/.testrun && cp -r /data/src /data/.testrun/src && cd /data/.testrun/src && dotnet build && mkdir -p /data/.output && cp -r /data/.testrun/src/$(APP_PATH)/bin/* /data/.output/ && rm -rf /data/.testrun"
 
 image:
 	docker build -t ${IMAGE_NAME} .
@@ -40,7 +40,7 @@ test:
 		-v $$(pwd):/data/ \
 		-e HOME="/data/.testrun" -e DOTNET_CLI_HOME="/data/.testrun" \
 		mcr.microsoft.com/dotnet/sdk:$(DOTNETVER) \
-		sh -c "mkdir /data/.testrun && cp -r /data/src /data/.testrun/src && cd /data/.testrun/src && dotnet test && rm -rf /data/.testrun"
+		sh -c "mkdir -p /data/.testrun && cp -r /data/src /data/.testrun/src && cd /data/.testrun/src && dotnet test && rm -rf /data/.testrun"
 
 test_functional_local_hosted:
 	@test -n "$(ENV_PATH)" || (echo "ENV_PATH is not set"; exit 1)
