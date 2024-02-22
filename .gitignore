@@ -425,3 +425,7 @@ Thumbs.db
 
 # Build Output
 .output
+
+.dotnet/
+.nuget/
+NuGet/
