@@ -246,9 +246,9 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                                 { "US", new List<RegionDataItemDTO>()
                                     {
                                         { new RegionDataItemDTO() {
-                                            CurrencyCode = "USD",
+                                            CurrencyCode = "USV",
                                             CurrencyNamespace = _Sdk.Namespace,
-                                            CurrencyType = RegionDataItemDTOCurrencyType.REAL,
+                                            CurrencyType = RegionDataItemDTOCurrencyType.VIRTUAL,
                                             Price = (i + 1) * 2
                                         }}
                                     }
@@ -351,9 +351,9 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                                 { "US", new List<RegionDataItemDTO>()
                                     {
                                         { new RegionDataItemDTO() {
-                                            CurrencyCode = "USD",
+                                            CurrencyCode = "USV",
                                             CurrencyNamespace = _Sdk.Namespace,
-                                            CurrencyType = RegionDataItemDTOCurrencyType.REAL,
+                                            CurrencyType = RegionDataItemDTOCurrencyType.VIRTUAL,
                                             Price = (i + 1) * 2
                                         }}
                                     }
@@ -510,7 +510,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
             try
             {
                 var result = _Sdk.Platform.Entitlement.ConsumeUserEntitlementOp
-                    .SetBody(new EntitlementDecrement()
+                    .SetBody(new AdminEntitlementDecrement()
                     {
                         UseCount = useCount
                     })
@@ -595,7 +595,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                 bool isUSDFound = false;
                 foreach (var currencyItem in currencies)
                 {
-                    if (currencyItem.CurrencyCode == "USD")
+                    if (currencyItem.CurrencyCode == "USV")
                     {
                         isUSDFound = true;
                         break;
@@ -607,13 +607,13 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                     _Sdk.Platform.Currency.CreateCurrencyOp
                         .SetBody(new CurrencyCreate()
                         {
-                            CurrencyCode = "USD",
-                            CurrencySymbol = "US$",
-                            CurrencyType = CurrencyCreateCurrencyType.REAL,
-                            Decimals = 2,
+                            CurrencyCode = "USV",
+                            CurrencySymbol = "USV",
+                            CurrencyType = CurrencyCreateCurrencyType.VIRTUAL,
+                            Decimals = 0,
                             LocalizationDescriptions = new Dictionary<string, string>()
                             {
-                                { "en", "US Dollars" }
+                                { "en", "Virtual US Dollars" }
                             }
                         })
                         .Execute(_Sdk.Namespace);

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AccelByte.Sdk" Version="0.49.1" />
+    <PackageReference Include="AccelByte.Sdk" Version="0.54.0" />
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
   </ItemGroup>
 
