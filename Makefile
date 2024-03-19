@@ -22,11 +22,11 @@ image:
 	docker build -t ${IMAGE_NAME} .
 
 imagex:
-	docker buildx inspect ${IMAGE_NAME}-builder \
-			|| docker buildx create --name ${IMAGE_NAME}-builder --use 
+	docker buildx inspect $(BUILDER) \
+			|| docker buildx create --name $(BUILDER) --use 
 	docker buildx build -t ${IMAGE_NAME} --platform linux/arm64,linux/amd64 .
 	docker buildx build -t ${IMAGE_NAME} --load .
-	#docker buildx rm ${IMAGE_NAME}-builder
+	docker buildx rm --keep-state $(BUILDER)
 
 imagex_push:
 	@test -n "$(IMAGE_TAG)" || (echo "IMAGE_TAG is not set (e.g. 'v0.1.0', 'latest')"; exit 1)
