@@ -83,7 +83,7 @@ $ dotnet run -- --category <CATEGORY_PATH> --grpc-target <GRPC_PLUGIN_SERVER_URL
 
 ## Build
 
-To build this CLI sample app, execute the following command.
+To build this demo CLI app, execute the following command.
 
 ```bash
 $ dotnet build
