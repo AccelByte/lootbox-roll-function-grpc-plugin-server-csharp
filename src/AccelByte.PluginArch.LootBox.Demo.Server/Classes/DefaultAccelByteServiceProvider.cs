@@ -40,6 +40,8 @@ namespace AccelByte.PluginArch.LootBox.Demo.Server
                 .UseLocalTokenValidator()
                 .UseAutoRefreshForTokenRevocationList()
                 .Build();
+
+            Sdk.LoginClient(true);
         }
     }
 }
