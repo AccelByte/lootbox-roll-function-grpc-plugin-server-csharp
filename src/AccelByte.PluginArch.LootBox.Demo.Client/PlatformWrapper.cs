@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023 AccelByte Inc. All Rights Reserved.
+﻿// Copyright (c) 2023-2025 AccelByte Inc. All Rights Reserved.
 // This is licensed software from AccelByte Inc, for limitations
 // and restrictions contact your company contract manager.
 
@@ -58,7 +58,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
             if (_Config.GrpcServerUrl != "")
             {
                 _Sdk.Platform.ServicePluginConfig.UpdateLootBoxPluginConfigOp
-                    .SetBody(new LootBoxPluginConfigUpdate()
+                    .Execute(new LootBoxPluginConfigUpdate()
                     {
                         ExtendType = LootBoxPluginConfigUpdateExtendType.CUSTOM,
                         CustomConfig = new BaseCustomConfig()
@@ -66,21 +66,19 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                             ConnectionType = BaseCustomConfigConnectionType.INSECURE,
                             GrpcServerAddress = _Config.GrpcServerUrl
                         }
-                    })
-                    .Execute(_Sdk.Namespace);
+                    }, _Sdk.Namespace);
             }
             else if (_Config.ExtendAppName != "")
             {
                 _Sdk.Platform.ServicePluginConfig.UpdateLootBoxPluginConfigOp
-                    .SetBody(new LootBoxPluginConfigUpdate()
+                    .Execute(new LootBoxPluginConfigUpdate()
                     {
                         ExtendType = LootBoxPluginConfigUpdateExtendType.APP,
                         AppConfig = new AppConfig()
                         {
                             AppName = _Config.ExtendAppName
                         }
-                    })
-                    .Execute(_Sdk.Namespace);
+                    }, _Sdk.Namespace);
             }
             else
                 throw new Exception("No Grpc target url configured.");
@@ -127,7 +125,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
 
                 //create new draft store
                 var newStore = _Sdk.Platform.Store.CreateStoreOp
-                    .SetBody(new StoreCreate()
+                    .Execute(new StoreCreate()
                     {
                         Title = AB_STORE_NAME,
                         Description = AB_STORE_DESC,
@@ -135,8 +133,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                         DefaultRegion = "US",
                         SupportedLanguages = new List<string>() { "en" },
                         SupportedRegions = new List<string>() { "US" }
-                    })
-                    .Execute(_Sdk.Namespace);
+                    }, _Sdk.Namespace);
                 if (newStore == null)
                     throw new Exception("Could not create new store.");
                 _StoreId = newStore.StoreId!;
@@ -158,12 +155,11 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                     throw new Exception("No store id stored.");
 
                 _Sdk.Platform.Category.CreateCategoryOp
-                    .SetBody(new CategoryCreate()
+                    .Execute(new CategoryCreate()
                     {
                         CategoryPath = categoryPath,
                         LocalizationDisplayNames = new Dictionary<string, string>() { { "en", categoryPath } }
-                    })
-                    .Execute(_Sdk.Namespace, _StoreId);
+                    }, _Sdk.Namespace, _StoreId);
             }
             catch (Exception x)
             {
@@ -180,7 +176,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                     throw new Exception("No store id stored.");
 
                 var newView = _Sdk.Platform.View.CreateViewOp
-                    .SetBody(new ViewCreate()
+                    .Execute(new ViewCreate()
                     {
                         Name = AB_VIEW_NAME,
                         DisplayOrder = 1,
@@ -192,8 +188,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                                 }
                             }
                         }
-                    })
-                    .Execute(_Sdk.Namespace, _StoreId);
+                    }, _Sdk.Namespace, _StoreId);
                 if (newView == null)
                     throw new Exception("Could not create a new store view.");
 
@@ -222,7 +217,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                     nItemInfo.Sku = $"SKU_{itemDiff}_{i + 1}";
 
                     var newItem = _Sdk.Platform.Item.CreateItemOp
-                        .SetBody(new ItemCreate()
+                        .Execute(new ItemCreate()
                         {
                             Name = nItemInfo.Title,
                             ItemType = ItemCreateItemType.SEASON,
@@ -254,8 +249,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                                     }
                                 }
                             }
-                        })
-                        .Execute(_Sdk.Namespace, _StoreId);
+                        }, _Sdk.Namespace, _StoreId);
                     if (newItem == null)
                         throw new Exception("Could not create store item.");
 
@@ -320,7 +314,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                     nItemInfo.RewardItems = rewardItems;
 
                     var newItem = _Sdk.Platform.Item.CreateItemOp
-                        .SetBody(new ItemCreate()
+                        .Execute(new ItemCreate()
                         {
                             Name = nItemInfo.Title,
                             ItemType = ItemCreateItemType.LOOTBOX,
@@ -359,8 +353,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                                     }
                                 }
                             }
-                        })
-                        .Execute(_Sdk.Namespace, _StoreId);
+                        }, _Sdk.Namespace, _StoreId);
                     if (newItem == null)
                         throw new Exception("Could not create store lootbox item.");
 
@@ -424,7 +417,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                 string sectionTitle = $"{itemDiff} Section";
 
                 var newSection = _Sdk.Platform.Section.CreateSectionOp
-                    .SetBody(new SectionCreate()
+                    .Execute(new SectionCreate()
                     {
                         ViewId = _ViewId,
                         DisplayOrder = 1,
@@ -447,8 +440,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                             }
                         },
                         Items = sectionItems
-                    })
-                    .Execute(_Sdk.Namespace, _StoreId);
+                    }, _Sdk.Namespace, _StoreId);
 
                 if (newSection == null)
                     throw new Exception("Could not create new store section.");
@@ -488,8 +480,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                 };
 
                 var eInfo = _Sdk.Platform.Entitlement.GrantUserEntitlementOp
-                    .SetBody(eGrants)
-                    .Execute(_Sdk.Namespace, userId);
+                    .Execute(eGrants, _Sdk.Namespace, userId);
                 if (eInfo == null)
                     throw new Exception("Could not grant user entitlement.");
 
@@ -510,11 +501,10 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
             try
             {
                 var result = _Sdk.Platform.Entitlement.ConsumeUserEntitlementOp
-                    .SetBody(new AdminEntitlementDecrement()
+                    .Execute(new AdminEntitlementDecrement()
                     {
                         UseCount = useCount
-                    })
-                    .Execute(entitlementId, _Sdk.Namespace, userId);
+                    }, entitlementId, _Sdk.Namespace, userId);
                 if (result == null)
                     throw new Exception("Could not consume user entitlement.");
 
@@ -605,7 +595,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                 if (!isUSDFound)
                 {
                     _Sdk.Platform.Currency.CreateCurrencyOp
-                        .SetBody(new CurrencyCreate()
+                        .Execute(new CurrencyCreate()
                         {
                             CurrencyCode = "USV",
                             CurrencySymbol = "USV",
@@ -615,8 +605,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Client
                             {
                                 { "en", "Virtual US Dollars" }
                             }
-                        })
-                        .Execute(_Sdk.Namespace);
+                        }, _Sdk.Namespace);
                 }
             }
             catch (Exception x)
