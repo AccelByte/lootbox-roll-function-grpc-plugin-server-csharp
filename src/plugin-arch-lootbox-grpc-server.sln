@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccelByte.PluginArch.LootBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccelByte.PluginArch.LootBox.Demo.Tests", "AccelByte.PluginArch.LootBox.Demo.Tests\AccelByte.PluginArch.LootBox.Demo.Tests.csproj", "{750077ED-0176-457F-9ACA-B8518C04A659}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccelByte.PluginArch.LootBox.Demo.Client", "AccelByte.PluginArch.LootBox.Demo.Client\AccelByte.PluginArch.LootBox.Demo.Client.csproj", "{59D83E84-1B48-4965-BA44-6EB0AC289F02}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -312,6 +312,8 @@ can use something like [ngrok](https://ngrok.com/).
    make ngrok NGROK_AUTHTOKEN=xxxxxxxxxxx
    ```
 
+   > :warning: **Ngrok free plan has some limitations**: You may want to use paid plan if the traffic is high.
+
    > :warning: **If you are running [grpc-plugin-dependencies](https://github.com/AccelByte/grpc-plugin-dependencies) stack alongside this app as mentioned in [Test Observability](#test-observability)**: Run the above 
    command in `grpc-plugin-dependencies` directory instead of this app directory. 
    This way, the `gRPC server` will be called via `Envoy` service within `grpc-plugin-dependencies` stack instead of directly.
@@ -333,13 +335,9 @@ can use something like [ngrok](https://ngrok.com/).
       - Platform Store -> Item (Create, Read, Delete)
       - Platform Store -> Entitlement (Create, Read, Update, Delete)
 
-   > :warning: **Oauth Client created in this step is different from the one from Prerequisites section:** It is required by Demo CLI app [here](src/AccelByte.PluginArch.LootBox.Demo.Client/) in the next step to register the `gRPC Server` URL, etc.
+   > :warning: **Oauth Client created in this step is different from the one from Prerequisites section:** It is required by the Postman collection in the next step to register the `gRPC Server` URL and also to create and delete test users.
 
-5. Create a user for testing. Keep the `Username` and `Password`.
-
-6. Use the demo CLI app [here](src/AccelByte.PluginArch.LootBox.Demo.Client/README.md) to test the example included in this project.
-
-> :warning: **Ngrok free plan has some limitations**: You may want to use paid plan if the traffic is high.
+5. Follow the instructions in the [Postman collection](demo/lootbox-roll-function-demo.postman_collection.json) overview to set up the environment, using the `Client ID` and `Client Secret` from the previous step. Pay attention to this app console log when extend app flow is running. At least one of the `gRPC Server` methods should get called when you run all the requests in the collection.
 
 ### Test Observability
 
