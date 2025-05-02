@@ -69,56 +69,60 @@ namespace AccelByte.PluginArch.LootBox.Demo.Server
         {
             try
             {
-                Authenticate(context);
-                return await continuation(request, context);
+                Authenticate(context);                
             }
             catch (Exception x)
             {
                 _Logger.LogError(x, $"Authorization error: {x.Message}");
                 throw new RpcException(new Status(StatusCode.Unauthenticated, x.Message));
             }
+
+            return await continuation(request, context);
         }
 
         public override async Task ServerStreamingServerHandler<TRequest, TResponse>(TRequest request, IServerStreamWriter<TResponse> responseStream, ServerCallContext context, ServerStreamingServerMethod<TRequest, TResponse> continuation)
         {
             try
             {
-                Authenticate(context);
-                await continuation(request, responseStream, context);
+                Authenticate(context);                
             }
             catch (Exception x)
             {
                 _Logger.LogError(x, $"Authorization error: {x.Message}");
                 throw new RpcException(new Status(StatusCode.Unauthenticated, x.Message));
             }
+
+            await continuation(request, responseStream, context);
         }
 
         public override async Task<TResponse> ClientStreamingServerHandler<TRequest, TResponse>(IAsyncStreamReader<TRequest> requestStream, ServerCallContext context, ClientStreamingServerMethod<TRequest, TResponse> continuation)
         {
             try
             {
-                Authenticate(context);
-                return await continuation(requestStream, context);
+                Authenticate(context);                
             }
             catch (Exception x)
             {
                 _Logger.LogError(x, $"Authorization error: {x.Message}");
                 throw new RpcException(new Status(StatusCode.Unauthenticated, x.Message));
             }
+
+            return await continuation(requestStream, context);
         }
 
         public override async Task DuplexStreamingServerHandler<TRequest, TResponse>(IAsyncStreamReader<TRequest> requestStream, IServerStreamWriter<TResponse> responseStream, ServerCallContext context, DuplexStreamingServerMethod<TRequest, TResponse> continuation)
         {
             try
             {
-                Authenticate(context);
-                await continuation(requestStream, responseStream, context);
+                Authenticate(context);                
             }
             catch (Exception x)
             {
                 _Logger.LogError(x, $"Authorization error: {x.Message}");
                 throw new RpcException(new Status(StatusCode.Unauthenticated, x.Message));
             }
+
+            await continuation(requestStream, responseStream, context);
         }
     }
 }
