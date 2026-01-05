@@ -168,7 +168,7 @@ To be able to run this app, you will need to follow these setup steps.
    recommended to enable `gRPC server` access token validation in production 
    environment.
 
-For more options, create `src/AccelByte.PluginArch.Demo.Server/appsettings.Development.json` and fill in the required configuration.
+For more options, create `src/AccelByte.PluginArch.LootBox.Demo.Server/appsettings.Development.json` and fill in the required configuration.
 
 ```json
 {
