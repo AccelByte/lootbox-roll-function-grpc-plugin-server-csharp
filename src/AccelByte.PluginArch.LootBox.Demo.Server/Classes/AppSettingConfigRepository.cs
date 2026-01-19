@@ -56,7 +56,7 @@ namespace AccelByte.PluginArch.LootBox.Demo.Server
             if (appServiceName == null)
                 ServiceName = "extend-app-lootbox-roll";
             else
-                ServiceName = $"extend-app-{appServiceName.Trim().ToLower()}";
+                ServiceName = $"extend-app-lr-{appServiceName.Trim().ToLower()}";
 
             string? appResourceName = Environment.GetEnvironmentVariable("APP_RESOURCE_NAME");
             if (appResourceName == null)
